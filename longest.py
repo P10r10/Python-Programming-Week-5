@@ -4,11 +4,9 @@
 # in the list.
 
 def longest(strings: list):
-    max_len = 0
     max_str = ""
     for string in strings:
-        if len(string) > max_len:
-            max_len = len(string)
+        if len(string) > len(max_str):
             max_str = string
     return max_str
 
