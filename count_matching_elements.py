@@ -1,8 +1,11 @@
+# def count_matching_elements(my_matrix: list, element: int):
+#     count = 0
+#     for row in my_matrix:
+#         count += row.count(element)
+#     return count
+
 def count_matching_elements(my_matrix: list, element: int):
-    count = 0
-    for row in my_matrix:
-        count += row.count(element)
-    return count
+    return sum(row.count(element) for row in my_matrix)
 
 
 if __name__ == "__main__":
