@@ -1,6 +1,6 @@
-def row_correct(sudoku: list, row_no: int):
+def column_correct(sudoku: list, column_no: int):
     for i in range(1, 10):  # checks numbers from 1 to 9
-        if sudoku[row_no].count(i) > 1:
+        if [row[column_no] for row in sudoku].count(i) > 1:
             return False
     return True
 
@@ -17,5 +17,6 @@ if __name__ == "__main__":
         [0, 0, 1, 0, 0, 0, 0, 0, 3],
         [3, 0, 0, 0, 0, 0, 0, 0, 2]
     ]
-    print(row_correct(sudoku, 0))
-    print(row_correct(sudoku, 1))
+
+    print(column_correct(sudoku, 0))
+    print(column_correct(sudoku, 1))
