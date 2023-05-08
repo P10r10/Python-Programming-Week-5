@@ -17,18 +17,24 @@ def print_student(students: dict, name: str):
         for course in students[name]:
             total += course[1]
             print(f"  {course[0]} {course[1]}")
-        print(f"average grade {total / len(students[name])}")
+        if len(students[name]) != 0:
+            print(f"average grade {total / len(students[name])}")
     else:
         print(f"{name}: no such person in the database")
 
 
 def get_grade(students: dict, name: str, course: tuple):
-    for xx in students[name]:
+    for courses in students[name]:
+        if courses[0] == course[0]:
+            return course[1]
+    return -1
 
 def add_course(students: dict, name: str, course: tuple):
     if course[1] == 0:  # courses with grade 0 should be ignored
         return
-    students[name].append(course)
+    grade = get_grade(students, name, course)
+    if grade == -1:
+        students[name].append(course)
             # if len(students[name]) == 0: # students without course will add one
     #     students[name].append(course)
     # else:
@@ -46,7 +52,7 @@ if __name__ == "__main__":
     add_course(students, "Peter", ("Advanced Course in Programming", 2))
     add_course(students, "Peter", ("Data Structures and Algorithms", 0))
     add_course(students, "Peter", ("Introduction to Programming", 2))
-    # print_student(students, "Peter")
-    for a in students["Peter"]: # lists all Peter's courses
-        print(a)
+    print_student(students, "Peter")
+    # for a in students["Peter"]: # lists all Peter's courses
+    #     print(a)
     lst = []
