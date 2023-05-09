@@ -23,26 +23,32 @@ def print_student(students: dict, name: str):
         print(f"{name}: no such person in the database")
 
 
-def get_grade(students: dict, name: str, course: tuple):
-    for courses in students[name]:
-        if courses[0] == course[0]:
-            return course[1]
+# def is_course_in_database(students: dict, name: str, course: tuple):
+#     for student_course in students[name]:
+#         if course[0] == student_course[0]:
+#             return True
+#     return False
+
+
+def get_course_grade(students: dict, name: str, course: tuple):
+    for student_course in students[name]:
+        if student_course[0] == course[0]:
+            return student_course[1]
     return -1
+
 
 def add_course(students: dict, name: str, course: tuple):
     if course[1] == 0:  # courses with grade 0 should be ignored
         return
-    grade = get_grade(students, name, course)
-    if grade == -1:
+    course_grade = get_course_grade(students, name, course)
+    if course_grade == -1:
         students[name].append(course)
-            # if len(students[name]) == 0: # students without course will add one
-    #     students[name].append(course)
-    # else:
-    #     for crs in students[name]:
-    #         None
-            # print("crs", crs[0], crs[1])
-            # if crs[0] == course[0] and crs[1] < course[1]:
-            #     students[name].append(course)
+    else:
+        for i, student_course in enumerate(students[name]):
+            if student_course[0] == course[0] and course_grade < course[1]:
+                print(students[name][i])
+                students[name][i] = course
+                break
 
 
 if __name__ == "__main__":
@@ -53,6 +59,3 @@ if __name__ == "__main__":
     add_course(students, "Peter", ("Data Structures and Algorithms", 0))
     add_course(students, "Peter", ("Introduction to Programming", 2))
     print_student(students, "Peter")
-    # for a in students["Peter"]: # lists all Peter's courses
-    #     print(a)
-    lst = []
