@@ -13,7 +13,10 @@ def print_student(students: dict, name: str):
     if name in students:
         total = 0
         print(f"{name}:")
-        print(f" {len(students[name])} completed courses:")
+        completed = len(students[name])
+        print(" no " if completed == 0 else f" {completed} ", end="")
+        print("completed courses", end="")
+        print(":" if completed > 0 else "")
         for course in students[name]:
             total += course[1]
             print(f"  {course[0]} {course[1]}")
@@ -21,13 +24,6 @@ def print_student(students: dict, name: str):
             print(f"average grade {total / len(students[name])}")
     else:
         print(f"{name}: no such person in the database")
-
-
-# def is_course_in_database(students: dict, name: str, course: tuple):
-#     for student_course in students[name]:
-#         if course[0] == student_course[0]:
-#             return True
-#     return False
 
 
 def get_course_grade(students: dict, name: str, course: tuple):
@@ -46,16 +42,37 @@ def add_course(students: dict, name: str, course: tuple):
     else:
         for i, student_course in enumerate(students[name]):
             if student_course[0] == course[0] and course_grade < course[1]:
-                print(students[name][i])
                 students[name][i] = course
                 break
+
+
+def get_average_grade(courses: list):
+    total = 0
+    for _, grade in courses:
+        total += grade
+    return total / len(courses)
+
+
+def summary(students: dict):
+    print("students", len(students))
+    completed = 0
+    found_name = ""
+    for name, courses in students.items():
+        if len(courses) > completed:
+            found_name = name
+            completed = len(courses)
+    print(f"most courses completed {completed} {found_name}")
+    best_average = 0
+    for name in students:
+        if get_average_grade(students[name]) > best_average:
+            best_average = get_average_grade(students[name])
+            found_name = name
+    print(f"best average grade {best_average} {found_name}")
 
 
 if __name__ == "__main__":
     students = {}
     add_student(students, "Peter")
-    add_course(students, "Peter", ("Introduction to Programming", 3))
-    add_course(students, "Peter", ("Advanced Course in Programming", 2))
-    add_course(students, "Peter", ("Data Structures and Algorithms", 0))
-    add_course(students, "Peter", ("Introduction to Programming", 2))
+    add_course(students, "Peter", ("Introduction to Programming", 5))
     print_student(students, "Peter")
+    
