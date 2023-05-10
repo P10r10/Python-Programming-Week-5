@@ -4,6 +4,12 @@
 # After that write a function named add_course, which adds a completed
 # course to the information of a specific student in the database. The course
 # data is a tuple consisting of the name of the course and the grade
+# Courses with grade 0 should be ignored when adding course information.
+# Additionally, if the course is already in the database in that specific
+# student's information, the grade recorded in the database should never be
+# lowered if the course is repeated.
+# Please write a function named summary, which prints out a summary based on
+# all the information stored in the database.
 
 def add_student(students: dict, name: str):
     students[name] = []
@@ -75,4 +81,3 @@ if __name__ == "__main__":
     add_student(students, "Peter")
     add_course(students, "Peter", ("Introduction to Programming", 5))
     print_student(students, "Peter")
-    
